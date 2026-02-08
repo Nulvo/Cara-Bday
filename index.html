@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Cara! 🎂</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #a8b89f 0%, #7a8a6f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .screen {
+            display: none;
+            max-width: 500px;
+            width: 100%;
+            opacity: 0;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Landing Page Styles */
+        .landing {
+            text-align: center;
+        }
+
+        .landing h1 {
+            color: #f4f1ea;
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: slideDown 0.8s ease-out 0.3s backwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .enter-button {
+            background: #f4f1ea;
+            color: #4a5a3f;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            animation: scaleIn 0.6s ease-out 0.6s backwards;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .enter-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+
+        .enter-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Selection Page Styles */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.8s ease-out 0.3s backwards;
+        }
+
+        .header h1 {
+            color: #f4f1ea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            color: #f4f1ea;
+            font-size: 1.1em;
+            font-style: italic;
+        }
+
+        .gift-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .gift-card {
+            background: #f4f1ea;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .gift-card:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+
+        .gift-card:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+
+        .gift-card:nth-child(3) {
+            animation-delay: 0.9s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .gift-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(168, 184, 159, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .gift-card:hover::before {
+            left: 100%;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        }
+
+        .gift-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .gift-title {
+            color: #4a5a3f;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .gift-description {
+            color: #6b7c5e;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #f4f1ea;
+            font-size: 0.95em;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.2s forwards;
+        }
+
+        /* Confirmation Page Styles */
+        .confirmation {
+            text-align: center;
+        }
+
+        .confirmation h1 {
+            color: #f4f1ea;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            animation: slideDown 0.8s ease-out 0.2s backwards;
+        }
+
+        .confirmation p {
+            color: #f4f1ea;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            animation: slideDown 0.8s ease-out 0.4s backwards;
+        }
+
+        .gif-container {
+            background: #f4f1ea;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            animation: scaleIn 0.6s ease-out 0.6s backwards;
+            margin-bottom: 30px;
+        }
+
+        .gif-container img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        .chosen-gift {
+            background: #f4f1ea;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            animation: slideUp 0.6s ease-out 0.8s backwards;
+        }
+
+        .chosen-gift h2 {
+            color: #4a5a3f;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .chosen-gift p {
+            color: #6b7c5e;
+            font-size: 1em;
+        }
+
+        @media (max-width: 480px) {
+            .landing h1 {
+                font-size: 2.2em;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .gift-card {
+                padding: 25px;
+            }
+            
+            .gift-icon {
+                font-size: 2.5em;
+            }
+            
+            .gift-title {
+                font-size: 1.3em;
+            }
+
+            .confirmation h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Screen -->
+    <div id="landing" class="screen active landing">
+        <h1>Happy Birthday Cara! 🎉</h1>
+        <button class="enter-button" onclick="showSelection()">Click to Enter</button>
+    </div>
+
+    <!-- Selection Screen -->
+    <div id="selection" class="screen">
+        <div class="header">
+            <h1>Choose Your Gift 🎁</h1>
+            <p>Pick one of these special experiences</p>
+        </div>
+
+        <div class="gift-cards">
+            <div class="gift-card" onclick="selectGift('voucher', 'The Nunhead Gardener', 'A voucher to spend at your favourite shop(s)')">
+                <span class="gift-icon">🌿</span>
+                <div class="gift-title">The Nunhead Gardener</div>
+                <div class="gift-description">A voucher to spend at your favourite gardening haven</div>
+            </div>
+
+            <div class="gift-card" onclick="selectGift('pottery', 'Pottery Class', 'Create something beautiful on the wheel')">
+                <span class="gift-icon">🏺</span>
+                <div class="gift-title">Pottery Class</div>
+                <div class="gift-description">Get your hands dirty and create something beautiful on the wheel</div>
+            </div>
+
+            <div class="gift-card" onclick="selectGift('florist', 'Florist Class', 'A florist class at the Nunhead Gardener')">
+                <span class="gift-icon">💐</span>
+                <div class="gift-title">Florist Class</div>
+                <div class="gift-description">Learn the art of flower arranging with a professional florist</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Tap any card to make your choice<br>Love, Ben x</p>
+        </div>
+    </div>
+
+    <!-- Confirmation Screen -->
+    <div id="confirmation" class="screen confirmation">
+        <h1>Excellent Choice! ✨</h1>
+        <p>You're going to love it</p>
+        
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/Vh8v0ana02dpIl4zdT/giphy.gif" alt="Happy Shiba Inu">
+        </div>
+
+        <div class="chosen-gift">
+            <h2 id="chosenTitle"></h2>
+            <p id="chosenDescription"></p>
+        </div>
+    </div>
+
+    <script>
+        function showSelection() {
+            document.getElementById('landing').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('selection').classList.add('active');
+            }, 100);
+        }
+
+        function selectGift(giftType, title, description) {
+            document.getElementById('chosenTitle').textContent = title;
+            document.getElementById('chosenDescription').textContent = description;
+            
+            document.getElementById('selection').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('confirmation').classList.add('active');
+            }, 100);
+        }
+    </script>
+</body>
+</html>
